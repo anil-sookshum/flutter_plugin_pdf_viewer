@@ -8,8 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PDFDocument {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_plugin_pdf_viewer');
+  static const MethodChannel _channel = const MethodChannel('flutter_plugin_pdf_viewer');
 
   String _filePath;
   int count;
@@ -21,8 +20,7 @@ class PDFDocument {
     PDFDocument document = PDFDocument();
     document._filePath = f.path;
     try {
-      var pageCount =
-          await _channel.invokeMethod('getNumberOfPages', {'filePath': f.path});
+      var pageCount = await _channel.invokeMethod('getNumberOfPages', {'filePath': f.path});
       document.count = document.count = int.parse(pageCount);
     } catch (e) {
       throw Exception('Error reading PDF!');
@@ -39,8 +37,7 @@ class PDFDocument {
     PDFDocument document = PDFDocument();
     document._filePath = f.path;
     try {
-      var pageCount =
-          await _channel.invokeMethod('getNumberOfPages', {'filePath': f.path});
+      var pageCount = await _channel.invokeMethod('getNumberOfPages', {'filePath': f.path});
       document.count = document.count = int.parse(pageCount);
     } catch (e) {
       throw Exception('Error reading PDF!');
@@ -66,8 +63,7 @@ class PDFDocument {
     PDFDocument document = PDFDocument();
     document._filePath = file.path;
     try {
-      var pageCount = await _channel
-          .invokeMethod('getNumberOfPages', {'filePath': file.path});
+      var pageCount = await _channel.invokeMethod('getNumberOfPages', {'filePath': file.path});
       document.count = document.count = int.parse(pageCount);
     } catch (e) {
       throw Exception('Error reading PDF!');
@@ -80,17 +76,15 @@ class PDFDocument {
   /// [page] defaults to `1` and must be equal or above it
   Future<PDFPage> get({int page = 1}) async {
     assert(page > 0);
-    var data = await _channel
-        .invokeMethod('getPage', {'filePath': _filePath, 'pageNumber': page});
+    var data = await _channel.invokeMethod('getPage', {'filePath': _filePath, 'pageNumber': page});
     return new PDFPage(data, page);
   }
 
   // Stream all pages
-  Observable<PDFPage> getAll() {
+  Stream<PDFPage> getAll() {
     return Future.forEach<PDFPage>(List(count), (i) async {
       print(i);
-      final data = await _channel
-          .invokeMethod('getPage', {'filePath': _filePath, 'pageNumber': i});
+      final data = await _channel.invokeMethod('getPage', {'filePath': _filePath, 'pageNumber': i});
       return new PDFPage(data, 1);
     }).asStream();
   }
