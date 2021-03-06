@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_advanced_networkimage/zoomable.dart';
 
 class PDFPage extends StatefulWidget {
   final String imgPath;
@@ -41,13 +40,21 @@ class _PDFPageState extends State<PDFPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: null,
-        child: ZoomableWidget(
-          zoomSteps: 3,
-          minScale: 1.0,
-          panLimit: 0.8,
-          maxScale: 3.0,
-          child: Image(image: provider),
-        ));
+      decoration: null,
+      // child: ZoomableWidget(
+      //   zoomSteps: 3,
+      //   minScale: 1.0,
+      //   panLimit: 0.8,
+      //   maxScale: 3.0,
+      //   child: Image(image: provider),
+      // ),
+      child: InteractiveViewer(
+        panEnabled: false, // Set it to false to prevent panning.
+        boundaryMargin: EdgeInsets.all(5),
+        minScale: 1.0,
+        maxScale: 3.0,
+        child: Image(image: provider),
+      ),
+    );
   }
 }
