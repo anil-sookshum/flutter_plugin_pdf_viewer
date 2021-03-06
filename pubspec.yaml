@@ -11,8 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   path_provider:
+  flutter_cache_manager: ^2.1.1
   numberpicker:
-  # flutter_advanced_networkimage: any
+  flutter_advanced_networkimage:
+    # path: /Users/sookshumlabs/Documents/GitHub/flutter_advanced_networkimage-1
+    git: https://github.com/anil-sookshum/flutter_advanced_networkimage-1
 
 flutter:
   plugin:
